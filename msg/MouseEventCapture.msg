@@ -1,0 +1,14 @@
+Ray ray
+Camera camera
+bool left
+bool left_down
+bool left_up
+bool middle
+bool middle_down
+bool middle_up
+bool right
+bool right_down
+bool right_up
+bool ctrl
+bool shift
+bool alt
