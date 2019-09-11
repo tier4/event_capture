@@ -4,6 +4,7 @@
 #include <OGRE/OgreViewport.h>
 #include <rviz/display_context.h>
 #include <rviz/render_panel.h>
+#include <geometry_msgs/Vector3.h>
 
 #include "event_capture_tool.hpp"
 #include "event_capture/MouseEventCaptureStamped.h"
