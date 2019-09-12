@@ -90,14 +90,8 @@ void EventCapture::publishMouseEvent(rviz::ViewportMouseEvent &event)
   }();
 
   mec.left = event.left();
-  mec.left_down = event.leftDown();
-  mec.left_up = event.leftUp();
   mec.middle = event.middle();
-  mec.middle_down = event.middleDown();
-  mec.middle_up = event.middleUp();
   mec.right = event.right();
-  mec.right_down = event.rightDown();
-  mec.right_up = event.rightUp();
   mec.alt = event.alt();
   mec.ctrl = event.control();
   mec.shift = event.shift();
