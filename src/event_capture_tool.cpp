@@ -25,6 +25,7 @@ EventCapture::~EventCapture()
 
 void EventCapture::onInitialize()
 {
+    move_tool_.initialize(context_);
     updateTopic();
 }
 
@@ -45,8 +46,15 @@ void EventCapture::updateTopic()
 
 int EventCapture::processMouseEvent(rviz::ViewportMouseEvent& event)
 {
-    publishMouseEvent(event);
-    return Render;
+  if(event.right() || event.rightDown() || event.rightUp())
+  {
+      publishMouseEvent(event);
+  }
+  else
+  {
+      move_tool_.processMouseEvent(event);
+  }
+  return Render;
 }
 
 /*int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel* panel)

@@ -3,6 +3,7 @@
 
 #include <ros/ros.h>
 #include <rviz/tool.h>
+#include <rviz/default_plugin/tools/move_tool.h>
 #include <rviz/viewport_mouse_event.h>
 #include <rviz/properties/float_property.h>
 #include <rviz/properties/string_property.h>
@@ -31,6 +32,7 @@ class EventCapture: public rviz::Tool
 
     private:
 
+        rviz::MoveTool move_tool_;
         ros::NodeHandle nh_;
         ros::Publisher  pub_;
         std::unique_ptr<rviz::StringProperty> topic_property_;
