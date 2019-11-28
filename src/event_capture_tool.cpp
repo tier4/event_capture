@@ -13,10 +13,12 @@ namespace rviz_plugins {
 
 EventCapture::EventCapture()
 {
-    shortcut_key_ = 'c';
-    topic_property_.reset(new rviz::StringProperty( "Topic", "/rviz/event_capture/mouse",
-                                        "The topic on which to publish event capture",
-                                        getPropertyContainer(), SLOT( updateTopic() ), this ));
+  shortcut_key_ = 'c';
+  topic_property_.reset(new rviz::StringProperty( "Topic", "/rviz/event_capture/mouse",
+    "The topic on which to publish event capture",
+    getPropertyContainer(), SLOT( updateTopic() ), this ));
+  use_move_tool_property_.reset(new rviz::BoolProperty( "Use move tool", true,
+    "Use left click to control camera", getPropertyContainer() ));
 }
 
 EventCapture::~EventCapture()
@@ -25,6 +27,7 @@ EventCapture::~EventCapture()
 
 void EventCapture::onInitialize()
 {
+    move_tool_.initialize(context_);
     updateTopic();
 }
 
@@ -45,14 +48,30 @@ void EventCapture::updateTopic()
 
 int EventCapture::processMouseEvent(rviz::ViewportMouseEvent& event)
 {
+  if(use_move_tool_property_->getBool())
+  {
+    if(event.right() || event.rightDown() || event.rightUp())
+    {
+        publishMouseEvent(event);
+    }
+    else
+    {
+        move_tool_.processMouseEvent(event);
+    }
+  }
+  else
+  {
     publishMouseEvent(event);
-    return Render;
+  }
+  return Render;
 }
 
-/*int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel* panel)
+/*
+int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel* panel)
 {
   return Render;
-}*/
+}
+*/
 
 void EventCapture::publishMouseEvent(rviz::ViewportMouseEvent &event)
 {

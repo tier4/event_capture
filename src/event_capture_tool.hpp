@@ -3,9 +3,11 @@
 
 #include <ros/ros.h>
 #include <rviz/tool.h>
+#include <rviz/default_plugin/tools/move_tool.h>
 #include <rviz/viewport_mouse_event.h>
 #include <rviz/properties/float_property.h>
 #include <rviz/properties/string_property.h>
+#include <rviz/properties/bool_property.h>
 #include <memory>
 
 
@@ -27,13 +29,16 @@ class EventCapture: public rviz::Tool
         //int processKeyEvent( QKeyEvent* event, rviz::RenderPanel* panel );
 
     private Q_SLOTS:
+
         void updateTopic();
 
     private:
 
+        rviz::MoveTool move_tool_;
         ros::NodeHandle nh_;
         ros::Publisher  pub_;
         std::unique_ptr<rviz::StringProperty> topic_property_;
+        std::unique_ptr<rviz::BoolProperty> use_move_tool_property_;
 
         void publishMouseEvent(rviz::ViewportMouseEvent &event);
 };

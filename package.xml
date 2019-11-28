@@ -7,6 +7,7 @@
   <license>Apache 2.0</license>
 
   <maintainer email="h_ohta@tier4.jp">Hiroki OTA</maintainer>
+  <maintainer email="isamu.takagi@tier4.jp">Takagi, Isamu</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
