@@ -18,4 +18,5 @@ Rvizの3D画面で、右クリックしながらマウスオーバーした時�
 を実行し、Rvizの3D画面で右クリックしながらマウスを動かしてトピックの出力を見てみる
 
 ## Special Thanks
-@isamu-takagi
+
+[@isamu-takagi](https://github.com/isamu-takagi)
