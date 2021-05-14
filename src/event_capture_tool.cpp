@@ -8,14 +8,18 @@
 
 #include "event_capture_tool.hpp"
 #include "event_capture/MouseEventCaptureStamped.h"
+#include "event_capture/KeyEventCaptureStamped.h"
 
 namespace rviz_plugins {
 
 EventCapture::EventCapture()
 {
   shortcut_key_ = 'c';
-  topic_property_.reset(new rviz::StringProperty( "Topic", "/rviz/event_capture/mouse",
-    "The topic on which to publish event capture",
+  mouse_topic_property_.reset(new rviz::StringProperty( "Topic", "/rviz/event_capture/mouse",
+    "The topic on which to publish mouse event capture",
+    getPropertyContainer(), SLOT( updateTopic() ), this ));
+  key_topic_property_.reset(new rviz::StringProperty( "Topic", "/rviz/event_capture/key",
+    "The topic on which to publish key event capture",
     getPropertyContainer(), SLOT( updateTopic() ), this ));
   use_move_tool_property_.reset(new rviz::BoolProperty( "Use move tool", true,
     "Use left click to control camera", getPropertyContainer() ));
@@ -43,7 +47,8 @@ void EventCapture::deactivate()
 
 void EventCapture::updateTopic()
 {
-  pub_ = nh_.advertise<event_capture::MouseEventCaptureStamped>( topic_property_->getStdString(), 1 );
+  pub_mouse_ = nh_.advertise<event_capture::MouseEventCaptureStamped>( mouse_topic_property_->getStdString(), 1 );
+  pub_key_ = nh_.advertise<event_capture::KeyEventCaptureStamped>( key_topic_property_->getStdString(), 1 );
 }
 
 int EventCapture::processMouseEvent(rviz::ViewportMouseEvent& event)
@@ -66,12 +71,24 @@ int EventCapture::processMouseEvent(rviz::ViewportMouseEvent& event)
   return Render;
 }
 
-/*
-int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel* panel)
+
+int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel*)
 {
+  publishKeyEvent(event);
   return Render;
 }
-*/
+
+void EventCapture::publishKeyEvent(QKeyEvent* event)
+{
+  std::cout << event->text().toStdString() << std::endl;
+  event_capture::KeyEventCaptureStamped kecs;
+  event_capture::KeyEventCapture kec;
+  kec.key = event->text().toStdString();
+  kecs.capture = kec;
+  kecs.header.stamp = ros::Time::now();
+  kecs.header.frame_id = context_->getFixedFrame().toUtf8().constData();
+  pub_key_.publish(kecs);
+}
 
 void EventCapture::publishMouseEvent(rviz::ViewportMouseEvent &event)
 {
@@ -119,7 +136,7 @@ void EventCapture::publishMouseEvent(rviz::ViewportMouseEvent &event)
   mecs.header.stamp = ros::Time::now();
   mecs.header.frame_id = context_->getFixedFrame().toUtf8().constData();
 
-  pub_.publish(mecs);
+  pub_mouse_.publish(mecs);
 }
 
 }
