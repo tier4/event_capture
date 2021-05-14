@@ -80,7 +80,6 @@ int EventCapture::processKeyEvent(QKeyEvent* event, rviz::RenderPanel*)
 
 void EventCapture::publishKeyEvent(QKeyEvent* event)
 {
-  std::cout << event->text().toStdString() << std::endl;
   event_capture::KeyEventCaptureStamped kecs;
   event_capture::KeyEventCapture kec;
   kec.key = event->text().toStdString();
