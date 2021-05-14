@@ -26,7 +26,7 @@ class EventCapture: public rviz::Tool
         void activate() override;
         void deactivate() override;
         int processMouseEvent(rviz::ViewportMouseEvent& event) override;
-        //int processKeyEvent( QKeyEvent* event, rviz::RenderPanel* panel );
+        int processKeyEvent( QKeyEvent* event, rviz::RenderPanel* panel );
 
     private Q_SLOTS:
 
@@ -36,11 +36,13 @@ class EventCapture: public rviz::Tool
 
         rviz::MoveTool move_tool_;
         ros::NodeHandle nh_;
-        ros::Publisher  pub_;
-        std::unique_ptr<rviz::StringProperty> topic_property_;
+        ros::Publisher  pub_mouse_, pub_key_;
+        std::unique_ptr<rviz::StringProperty> mouse_topic_property_;
+        std::unique_ptr<rviz::StringProperty> key_topic_property_;
         std::unique_ptr<rviz::BoolProperty> use_move_tool_property_;
 
         void publishMouseEvent(rviz::ViewportMouseEvent &event);
+        void publishKeyEvent(QKeyEvent* event);
 };
 
 }

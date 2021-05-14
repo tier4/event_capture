@@ -17,6 +17,8 @@ add_message_files(
         MouseEventCaptureStamped.msg
         Ray.msg
         Camera.msg
+        KeyEventCapture.msg
+        KeyEventCaptureStamped.msg
 )
 
 generate_messages(
