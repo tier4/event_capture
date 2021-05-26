@@ -8,9 +8,7 @@ Rvizの3D画面で、以下の2機能を実現
 なお、左クリックは `Interact` を押している時と動作は変わらない
 
 ## Publish Topic
-`/rviz/event_capture/mouse (event_capture/MouseEventCaptureStamped)`
-
-`/rviz/event_capture/key (event_capture/KeyEventCaptureStamped)`
+`/rviz/event_capture (event_capture/EventCaptureStamped)`
 
 ## 使用方法
 1. Rvizのツールバー（Interactのあるバー）で
@@ -18,7 +16,7 @@ Rvizの3D画面で、以下の2機能を実現
 
 1. Rvizのツールバーで Event Capture を選択 or `c` を入力
 
-1. `rostopic echo /rviz/event_capture/mouse` 
+1. `rostopic echo /rviz/event_capture`
 を実行し、Rvizの3D画面で右クリックしながらマウスを動かしてトピックの出力を見てみる or キーボード入力を実施する
 
 ## Special Thanks
