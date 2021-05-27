@@ -14,11 +14,10 @@ add_message_files(
         DIRECTORY msg
         FILES
         MouseEventCapture.msg
-        MouseEventCaptureStamped.msg
+        EventCaptureStamped.msg
         Ray.msg
         Camera.msg
-        KeyEventCapture.msg
-        KeyEventCaptureStamped.msg
+        KeyboardEventCapture.msg
 )
 
 generate_messages(
